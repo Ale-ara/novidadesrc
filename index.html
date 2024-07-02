@@ -244,11 +244,20 @@
             font-weight: 500;
             margin-left: 10px;
         }
+
+/* Estilo para o item ativo no navbar */
+.nav_item.active {
+    background-color: #005dad; /* Cor de fundo para indicar ativo */
+}
+.nav_item.active .nav_name {
+    color: #ffffff; /* Cor do texto para indicar ativo */
+}
+
     </style>
 </head>
 <body>
 
-   <nav class="nav" id="navbar">
+    <nav class="nav" id="navbar">
         <div class="nav_container">
             <div class="nav_logo">
                 [SRC]
@@ -275,9 +284,15 @@
                 <div class="nav_item">
                     <a href="#" class="nav_link">
                         <i class='bx bx-news nav_icon'></i>
-                        <span class="nav_name">Projetos / Sugestões / Correções</span>
+                        <span class="nav_name">Novidades da Semana</span>
                     </a>
                 </div>
+
+                <div class="nav_item">
+                    <a href="#" class="nav_link" onclick="selectPage('promovidos')">
+                        <i class='bx bx-news nav_icon'></i>
+                        <span class="nav_name">Promovidos da Semana</span>
+                    </a>
                 
 
             </div>
@@ -344,6 +359,24 @@
                 });
         });
     </script>
+
+
+<script>
+    function selectPage(pageName) {
+       
+        const navItems = document.querySelectorAll('.nav_item');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+    
+        
+        const selectedNavItem = document.querySelector(`.nav_item.${pageName}`);
+        if (selectedNavItem) {
+            selectedNavItem.classList.add('active');
+        }
+    }
+    </script>
+
 
 </body>
 </html>
