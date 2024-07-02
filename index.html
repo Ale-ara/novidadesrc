@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[SRC] - Projetos / Sugestões / Correções</title>
+    <title>[SRC] - NOVIDADES!</title>
     <link rel="icon" href="https://www.habbo.com.br/habbo-imaging/badge/b09064s43084s50134eda71d18c813ca341e7e285475586bf5.gif">
     <link rel="stylesheet" href="css.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,23 +48,22 @@
             margin-bottom: 30px;
         }
 
-        .item {
+        .promo-item, .project-item {
             background-color: #e7e7e7;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
             text-align: left;
-            display: flex; /* Para que os itens fiquem em linha */
-            align-items: center; /* Alinha os itens verticalmente */
-            gap: 10px; /* Espaçamento entre os elementos internos */
+            display: flex;
+            align-items: center;
         }
 
-        .item-content {
-            flex: 1; /* Ocupa todo o espaço disponível */
+        .promo-item img, .project-item img {
+            margin-right: 10px;
         }
 
-        .item-content h3, .item-content p {
-            margin: 0; /* Remove as margens padrão */
+        .promo-item b, .project-item b {
+            color: #005dad;
         }
 
         .logo {
@@ -245,22 +244,6 @@
             font-weight: 500;
             margin-left: 10px;
         }
-
-        .blue-text {
-    font-weight: bold;
-    color: #005dad; /* Cor azul utilizando o mesmo RGB mencionado anteriormente */
-}
-
-@media (max-width: 768px) {
-    .blue-text {
-        font-weight: bold;
-        color: #005dad;
-        font-size: 14px; /* Exemplo de tamanho de fonte para dispositivos móveis */
-        line-height: 1.4; /* Exemplo de altura da linha para dispositivos móveis */
-    }
-}
-
-
     </style>
 </head>
 <body>
@@ -292,10 +275,17 @@
                 <div class="nav_item">
                     <a href="#" class="nav_link">
                         <i class='bx bx-news nav_icon'></i>
-                        <span class="nav_name">Projetos / Sugestões / Correções</span>
+                        <span class="nav_name">Novidades da Semana</span>
                     </a>
                 </div>
 
+                <div class="nav_item">
+                    <a href="#" class="nav_link" id="promovidos-semana-link">
+                        <i class='bx bx-award nav_icon'></i>
+                        <span class="nav_name">Promovidos da Semana</span>
+                    </a>
+                </div>
+                
 
             </div>
             <div class="nav_developed">
@@ -306,98 +296,61 @@
 
     <div class="container">
         <img class="logo" src="https://i.imgur.com/sVUAYxC.gif" alt="Habbo Logo">
-        <h1>Projetos / Sugestões / Correções</h1>
-        <div class="section" id="description">
-            <p><span class="blue-text">O Setor de Relações Comunicativas dos Instrutores</span> informa as novidades da semana! Nela, encontrará encontrará os projetos aprovados na companhia.</p>
+
+        <div class="section">
+            <h1>Promovidos da Semana</h1>
+            <p id="periodo-abrangencia">Período de abrangência: Aguardando dados...</p>
         </div>
 
-        <div class="section" id="projetos">
-            <h2>Projetos</h2>
-            <div id="projetos-list"></div>
+        <!-- Exibir todos os itens de promoção dinamicamente -->
+        <div class="section" id="novidades-semana">
+            <!-- Os itens serão adicionados aqui dinamicamente -->
         </div>
 
-        <div class="section" id="sugestoes">
-            <h2>Sugestões</h2>
-            <div id="sugestoes-list"></div>
-        </div>
+        
 
-        <div class="section" id="correcoes">
-            <h2>Correções</h2>
-            <div id="correcoes-list"></div>
-        </div>
-
-        <div class="credits" id="credits">
-            <p>Feito por <strong>[SRC]</strong></p>
-            <i class='bx bxs-smile'></i>
-            <span class="line-break"></span>
-        </div>
-    </div>
-
-    <div id="loading-screen">
-        <span>Carregando...</span>
-    </div>
+    <script src="script.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Documento carregado');
-            fetch('https://script.google.com/macros/s/AKfycbybh1cYcYtvJbzgGuWjzaXSjM5pfOeMt1NVl5-H-RvK68NcBoATyYhxjcQkdpuuoXzOHw/exec')
+            var url = 'https://script.google.com/macros/s/AKfycby7uqvPuX7fWdssY80JQKoZq0OzxvRVtHAEgW6plu8U4N5P7nP8S0W2SqUt0fvy5iKdMQ/exec';
+
+            fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Dados recebidos:', data);
-                    if (data.projetos) {
-                        const projetosList = document.getElementById('projetos-list');
-                        data.projetos.forEach(projeto => {
-                            console.log('Projeto:', projeto);
-                            const item = document.createElement('div');
-                            item.classList.add('item');
-                            item.innerHTML = `
-                                <div class="item-content">
-                                    <p><span class="blue-text">Ordem ${projeto.ordem}</span>: ${projeto.nome} - ${projeto.dados}</p>
-                                </div>
-                            `;
-                            projetosList.appendChild(item);
-                        });
-                    }
 
-                    if (data.sugestoes) {
-                        const sugestoesList = document.getElementById('sugestoes-list');
-                        data.sugestoes.forEach(sugestao => {
-                            console.log('Sugestão:', sugestao);
-                            const item = document.createElement('div');
-                            item.classList.add('item');
-                            item.innerHTML = `
-                                <div class="item-content">
-                                    <p><span class="blue-text">Ordem ${sugestao.ordem}</span>: ${sugestao.nome} - ${sugestao.dados}</p>
-                                </div>
-                            `;
-                            sugestoesList.appendChild(item);
-                        });
-                    }
+                    // Exibe o período de abrangência
+                    var periodoInicio = data.periodoInicio;
+                    var periodoFim = data.periodoFim;
+                    var periodoAbrangencia = document.getElementById('periodo-abrangencia');
+                    periodoAbrangencia.textContent = `Período de abrangência: ${periodoInicio} até ${periodoFim}`;
 
-                    if (data.correcoes) {
-                        const correcoesList = document.getElementById('correcoes-list');
-                        data.correcoes.forEach(correcao => {
-                            console.log('Correção:', correcao);
-                            const item = document.createElement('div');
-                            item.classList.add('item');
-                            item.innerHTML = `
-                                <div class="item-content">
-                                    <p><span class="blue-text">Ordem ${correcao.ordem}</span>: ${correcao.nome} - ${correcao.dados}</p>
-                                </div>
-                            `;
-                            correcoesList.appendChild(item);
-                        });
-                    }
+                    // Exibe os dados dos promovidos
+                    // Exibe os dados dos promovidos
+                    var novidadesContainer = document.getElementById('novidades-semana');
+                    data.promovidos.forEach(item => {
+    // Verifica se ambos nome e cargo estão preenchidos
+    if (item.nome.trim() !== '' && item.cargo.trim() !== '') {
+        var div = document.createElement('div');
+        div.className = 'promo-item';
+        div.innerHTML = `
+             <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${encodeURIComponent(item.cargo)}&direction=2&head_direction=3&size=l&gesture=sml&action=wlk,wav" alt="Avatar">
+              <b>${item.cargo} </b>:  promovido(a) a ${item.nome}!
+        `;
+        novidadesContainer.appendChild(div);
+    }
+});
 
-                    // Esconder a tela de carregamento
-                    const loadingScreen = document.getElementById('loading-screen');
-                    loadingScreen.classList.add('hidden');
+
+
+
                 })
                 .catch(error => {
                     console.error('Erro ao carregar dados:', error);
-                    alert('Erro ao carregar dados. Por favor, tente novamente mais tarde.');
                 });
         });
     </script>
+
 </body>
 </html>
